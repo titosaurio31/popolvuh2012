@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popol Vuh - El Libro Sagrado de los Mayas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ocre: #C4956A;
+            --rojo-maya: #8B2500;
+            --terroso: #5C3A21;
+            --crema: #F5E6C8;
+            --negro-maya: #0a0604;
+            --dorado: #D4A843;
+            --tierra: #8B6914;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Noto Serif', serif;
+            background: var(--negro-maya);
+            color: var(--crema);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--dorado);
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatParticle 10s infinite ease-in-out;
+        }
+
+        @keyframes floatParticle {
+            0% { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { opacity: 0; transform: translateY(-10vh) rotate(720deg); }
+        }
+
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.04;
+            background-image: 
+                repeating-linear-gradient(0deg, var(--ocre) 0, var(--ocre) 1px, transparent 0, transparent 150px),
+                repeating-linear-gradient(90deg, var(--ocre) 0, var(--ocre) 1px, transparent 0, transparent 150px);
+            background-size: 150px 150px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .presentation {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .slide {
+            position: absolute;
+            width: 95vw;
+            height: 90vh;
+            background: linear-gradient(160deg, #1a0f0a 0%, #0d0805 40%, #1a1208 100%);
+            border: 3px solid var(--tierra);
+            border-radius: 8px;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+            opacity: 0;
+            transform: translateX(100px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 0 50px rgba(139, 105, 20, 0.15),
+                inset 0 0 80px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+
+        .slide.prev {
+            transform: translateX(-100px) scale(0.95);
+            opacity: 0;
+        }
+
+        .content-panel {
+            flex: 1;
+            padding: 30px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-panel {
+            width: 45%;
+            min-width: 400px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a0f0a;
+            padding: 20px;
+        }
+
+        .image-panel img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            opacity: 0.95;
+            transition: transform 0.8s ease, filter 0.5s ease;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+
+        .image-panel img:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .slide.active .image-panel img {
+            transform: scale(1.02);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #1a0f0a 0%, transparent 10%, transparent 90%, #1a0f0a 100%);
+            pointer-events: none;
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            right: 20px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--ocre);
+            opacity: 0.8;
+            font-style: italic;
+            z-index: 10;
+            background: rgba(10, 6, 4, 0.7);
+            padding: 6px 12px;
+            border-radius: 3px;
+        }
+
+        .slide.full-content .content-panel {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            align-items: center;
+            padding: 40px 60px;
+            justify-content: center;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 2px solid var(--tierra);
+            border-radius: 4px;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0.4;
+            animation: borderGlow 4s infinite ease-in-out;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.3; border-color: var(--tierra); }
+            50% { opacity: 0.6; border-color: var(--dorado); }
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            right: 25px;
+            bottom: 25px;
+            border: 1px solid var(--ocre);
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0.2;
+        }
+
+        .corner-decor {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            z-index: 15;
+            opacity: 0.6;
+            animation: cornerPulse 3s infinite ease-in-out;
+        }
+
+        @keyframes cornerPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        .corner-decor::before,
+        .corner-decor::after {
+            content: '';
+            position: absolute;
+            background: var(--dorado);
+        }
+
+        .corner-tl { top: 25px; left: 25px; }
+        .corner-tl::before { width: 30px; height: 2px; top: 0; left: 0; }
+        .corner-tl::after { width: 2px; height: 30px; top: 0; left: 0; }
+
+        .corner-tr { top: 25px; right: 25px; }
+        .corner-tr::before { width: 30px; height: 2px; top: 0; right: 0; }
+        .corner-tr::after { width: 2px; height: 30px; top: 0; right: 0; }
+
+        .corner-bl { bottom: 25px; left: 25px; }
+        .corner-bl::before { width: 30px; height: 2px; bottom: 0; left: 0; }
+        .corner-bl::after { width: 2px; height: 30px; bottom: 0; left: 0; }
+
+        .corner-br { bottom: 25px; right: 25px; }
+        .corner-br::before { width: 30px; height: 2px; bottom: 0; right: 0; }
+        .corner-br::after { width: 2px; height: 30px; bottom: 0; right: 0; }
+
+        h1 {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 2.6rem;
+            color: var(--dorado);
+            text-shadow: 0 0 15px rgba(212, 168, 67, 0.2);
+            margin-bottom: 8px;
+            letter-spacing: 4px;
+            line-height: 1.2;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        h2 {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.7rem;
+            color: var(--ocre);
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            line-height: 1.3;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        h3 {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.15rem;
+            color: var(--dorado);
+            margin: 10px 0 6px;
+            letter-spacing: 1px;
+            line-height: 1.3;
+        }
+
+        h4 {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 0.9rem;
+            color: var(--dorado);
+            margin: 8px 0 4px;
+            letter-spacing: 1px;
+        }
+
+        p, li {
+            font-size: 0.85rem;
+            line-height: 1.55;
+            color: var(--crema);
+            max-width: 100%;
+        }
+
+        .title-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .title-decoration::before,
+        .title-decoration::after {
+            content: '';
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+        }
+
+        .title-decoration span {
+            color: var(--dorado);
+            font-size: 0.8rem;
+            letter-spacing: 6px;
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--ocre);
+            border-left: 3px solid var(--dorado);
+            padding: 8px 16px;
+            margin: 12px 0;
+            text-align: left;
+            max-width: 100%;
+            background: rgba(196, 149, 106, 0.05);
+            border-radius: 0 6px 6px 0;
+            line-height: 1.5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: text;
+        }
+
+        .quote:hover {
+            background: rgba(212, 168, 67, 0.1);
+            border-left-color: var(--dorado);
+            transform: translateX(5px);
+        }
+
+        .content-list {
+            list-style: none;
+            text-align: left;
+            max-width: 100%;
+            margin: 8px 0;
+            width: 100%;
+        }
+
+        .content-list li {
+            padding: 5px 0 5px 24px;
+            position: relative;
+            font-size: 0.82rem;
+            line-height: 1.45;
+            margin-bottom: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .content-list li:hover {
+            background: rgba(212, 168, 67, 0.08);
+            padding-left: 28px;
+        }
+
+        .content-list li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--dorado);
+            font-size: 0.65rem;
+            top: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .content-list li:hover::before {
+            transform: scale(1.5);
+            color: var(--dorado);
+        }
+
+        .maya-table {
+            width: 100%;
+            max-width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.8rem;
+        }
+
+        .maya-table th {
+            background: linear-gradient(180deg, var(--rojo-maya), #6b1c00);
+            color: var(--crema);
+            padding: 8px 6px;
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            border: 1px solid var(--tierra);
+            line-height: 1.3;
+            transition: all 0.3s ease;
+        }
+
+        .maya-table th:hover {
+            background: linear-gradient(180deg, #a03000, var(--rojo-maya));
+        }
+
+        .maya-table td {
+            padding: 6px 8px;
+            border: 1px solid rgba(196, 149, 106, 0.2);
+            text-align: left;
+            line-height: 1.35;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .maya-table tr:hover td {
+            background: rgba(212, 168, 67, 0.08);
+            color: var(--dorado);
+        }
+
+        .maya-table tr:nth-child(even) {
+            background: rgba(196, 149, 106, 0.04);
+        }
+
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            max-width: 100%;
+            margin: 8px 0;
+            width: 100%;
+        }
+
+        .character-card {
+            background: rgba(212, 168, 67, 0.06);
+            border: 1px solid rgba(196, 149, 106, 0.25);
+            border-radius: 4px;
+            padding: 8px 10px;
+            text-align: left;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            z-index: 20;
+        }
+
+        .character-card:hover {
+            background: rgba(212, 168, 67, 0.15);
+            border-color: var(--dorado);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(212, 168, 67, 0.15);
+        }
+
+        .character-card.active-highlight {
+            background: rgba(212, 168, 67, 0.25) !important;
+            border-color: var(--dorado) !important;
+            transform: translateY(-6px) scale(1.05) !important;
+            box-shadow: 0 10px 25px rgba(212, 168, 67, 0.3) !important;
+        }
+
+        .character-card h4 {
+            color: var(--dorado);
+            font-family: 'Cinzel Decorative', cursive;
+            margin-bottom: 3px;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            pointer-events: none;
+        }
+
+        .character-card p {
+            font-size: 0.76rem;
+            margin: 0;
+            line-height: 1.35;
+            pointer-events: none;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            max-width: 100%;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .column-section {
+            text-align: left;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            z-index: 20;
+        }
+
+        .column-section:hover {
+            background: rgba(212, 168, 67, 0.08);
+            transform: translateX(5px);
+        }
+
+        .column-section.active-highlight {
+            background: rgba(212, 168, 67, 0.15) !important;
+            transform: translateX(10px) !important;
+        }
+
+        .column-section h4 {
+            margin-bottom: 5px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid var(--tierra);
+            font-size: 0.88rem;
+            pointer-events: none;
+        }
+
+        .column-section p {
+            font-size: 0.8rem;
+            line-height: 1.45;
+            pointer-events: none;
+        }
+
+        .column-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .column-section li {
+            padding: 3px 0;
+            position: relative;
+            padding-left: 14px;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .column-section li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--dorado);
+            font-size: 0.65rem;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+            background: rgba(10, 6, 4, 0.85);
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--tierra);
+            transition: all 0.3s ease;
+        }
+
+        .controls:hover {
+            border-color: var(--dorado);
+            box-shadow: 0 0 20px rgba(212, 168, 67, 0.2);
+        }
+
+        .btn {
+            background: transparent;
+            border: 2px solid var(--ocre);
+            color: var(--crema);
+            padding: 8px 20px;
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 168, 67, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: var(--rojo-maya);
+            border-color: var(--dorado);
+            box-shadow: 0 0 15px rgba(212, 168, 67, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: #444;
+            transform: none;
+        }
+
+        .btn:disabled::before {
+            display: none;
+        }
+
+        .maya-clock {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 100;
+            background: rgba(10, 6, 4, 0.9);
+            border: 2px solid var(--tierra);
+            border-radius: 8px;
+            padding: 12px 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .maya-clock:hover {
+            border-color: var(--dorado);
+            box-shadow: 0 0 15px rgba(212, 168, 67, 0.3);
+            transform: scale(1.05);
+        }
+
+        .maya-clock .clock-time {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.2rem;
+            color: var(--dorado);
+            letter-spacing: 2px;
+        }
+
+        .maya-clock .clock-date {
+            font-size: 0.75rem;
+            color: var(--ocre);
+            margin-top: 4px;
+        }
+
+        .maya-clock .clock-label {
+            font-size: 0.65rem;
+            color: var(--tierra);
+            margin-top: 2px;
+            letter-spacing: 1px;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--rojo-maya), var(--dorado), var(--ocre));
+            transition: width 0.6s ease;
+            z-index: 100;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            font-family: 'Cinzel Decorative', cursive;
+            color: var(--ocre);
+            font-size: 0.85rem;
+            z-index: 100;
+            letter-spacing: 2px;
+            background: rgba(10, 6, 4, 0.7);
+            padding: 5px 12px;
+            border-radius: 4px;
+            border: 1px solid var(--tierra);
+        }
+
+        .maya-icon {
+            font-size: 2.2rem;
+            margin: 8px 0;
+            color: var(--dorado);
+            opacity: 0.9;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            display: inline-block;
+        }
+
+        .maya-icon:hover {
+            transform: rotate(15deg) scale(1.2);
+            filter: drop-shadow(0 0 10px var(--dorado));
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: var(--ocre);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .portada-gifs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .portada-gif-item {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid var(--tierra);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 20;
+        }
+
+        .portada-gif-item:hover {
+            border-color: var(--dorado);
+            transform: scale(1.15) rotate(3deg);
+            box-shadow: 0 0 20px rgba(212, 168, 67, 0.4);
+        }
+
+        .portada-gif-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .portada-gif-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 6, 4, 0.8);
+            color: var(--dorado);
+            font-size: 0.65rem;
+            padding: 3px;
+            text-align: center;
+            font-family: 'Cinzel Decorative', cursive;
+            letter-spacing: 1px;
+            pointer-events: none;
+        }
+
+        .portada-btn-start {
+            margin-top: 25px;
+            padding: 12px 40px;
+            background: linear-gradient(135deg, var(--rojo-maya), var(--terroso));
+            border: 2px solid var(--dorado);
+            color: var(--crema);
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            animation: pulseBtn 2s infinite ease-in-out;
+            position: relative;
+            z-index: 20;
+        }
+
+        @keyframes pulseBtn {
+            0%, 100% { box-shadow: 0 0 10px rgba(212, 168, 67, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(212, 168, 67, 0.6); }
+        }
+
+        .portada-btn-start:hover {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, var(--terroso), var(--rojo-maya));
+            box-shadow: 0 0 30px rgba(212, 168, 67, 0.5);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.15s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.45s; }
+        .delay-4 { animation-delay: 0.6s; }
+        .delay-5 { animation-delay: 0.75s; }
+
+        @keyframes rotateIn {
+            from { opacity: 0; transform: rotate(-10deg) scale(0.9); }
+            to { opacity: 1; transform: rotate(0) scale(1); }
+        }
+
+        .rotate-in {
+            animation: rotateIn 0.8s ease forwards;
+        }
+
+        @media (max-width: 1200px) {
+            .slide { flex-direction: column; height: 88vh; }
+            .image-panel { width: 100%; height: 30%; min-width: auto; padding: 10px; }
+            .content-panel { padding: 20px; }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.2rem; }
+            .characters-grid { grid-template-columns: 1fr; }
+            .two-columns { grid-template-columns: 1fr; }
+            .maya-clock { display: none; }
+            .portada-gif-item { width: 80px; height: 80px; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.4rem; letter-spacing: 2px; }
+            h2 { font-size: 1rem; }
+            .content-panel { padding: 15px; }
+            .btn { padding: 6px 12px; font-size: 0.7rem; }
+            .slide-counter { right: 15px; bottom: 15px; font-size: 0.75rem; }
+            .slide { width: 98vw; height: 90vh; }
+            .portada-gif-item { width: 60px; height: 60px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles-container" id="particlesContainer"></div>
+    <div class="bg-pattern"></div>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="maya-clock" id="mayaClock">
+        <div class="clock-time" id="clockTime">00:00:00</div>
+        <div class="clock-date" id="clockDate">--/--/----</div>
+        <div class="clock-label">Clic para pausar</div>
+    </div>
+
+    <div class="presentation">
+        <!-- DIAPOSITIVA 1: PORTADA -->
+        <div class="slide full-content active" id="slide-0">
+            <div class="corner-decor corner-tl"></div>
+            <div class="corner-decor corner-tr"></div>
+            <div class="corner-decor corner-bl"></div>
+            <div class="corner-decor corner-br"></div>
+            <div class="content-panel">
+                <div class="maya-icon animate-in" onclick="animateIcon(this)">🌽</div>
+                <h1 class="animate-in">POPOL VUH</h1>
+                <div class="title-decoration animate-in delay-1">
+                    <span>◆ ◆ ◆</span>
+                </div>
+                <p class="subtitle animate-in delay-1">El Libro Sagrado de los Mayas</p>
+                <p class="subtitle animate-in delay-2" style="font-size: 0.8rem; margin-top: 5px;">"Libro del Consejo" — La Biblia del Pueblo K'iche'</p>
+                
+                <div class="portada-gifs animate-in delay-2">
+                    <div class="portada-gif-item" onclick="animateGif(this)">
+                        <img src="https://media.tenor.com/e778c983f2b710a55acba6159369dc7277f98a4d.gif" alt="Dios Maya">
+                        <div class="portada-gif-label">Dioses</div>
+                    </div>
+                    <div class="portada-gif-item" onclick="animateGif(this)">
+                        <img src="https://media.tenor.com/ddb9cd6184edc0c57e42d9717178912958774f34.gif" alt="Pirámide Maya">
+                        <div class="portada-gif-label">Pirámides</div>
+                    </div>
+                    <div class="portada-gif-item" onclick="animateGif(this)">
+                        <img src="https://media.tenor.com/4b7f91ddf35d870dd964eabcbb641e6db8319b7a.gif" alt="Chichén Itzá">
+                        <div class="portada-gif-label">Chichén Itzá</div>
+                    </div>
+                </div>
+                
+                <button class="portada-btn-start animate-in delay-3" id="btnComenzar">
+                    ▶ COMENZAR PRESENTACIÓN
+                </button>
+                
+                <p class="animate-in delay-4" style="margin-top: 15px; font-size: 0.75rem; color: var(--ocre); opacity: 0.6;">
+                    Texto sagrado redactado circa 1550 d.C. en lengua K'iche'
+                </p>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 2: ¿QUÉ ES? -->
+        <div class="slide" id="slide-1">
+            <div class="corner-decor corner-tl"></div>
+            <div class="corner-decor corner-tr"></div>
+            <div class="corner-decor corner-bl"></div>
+            <div class="corner-decor corner-br"></div>
+            <div class="content-panel">
+                <h2 class="animate-in">¿Qué es el Popol Vuh?</h2>
+                <div class="title-decoration animate-in delay-1">
+                    <span>◆ ◆ ◆</span>
+                </div>
+                <p class="animate-in delay-1" style="text-align: left; width: 100%; margin-bottom: 8px; font-size: 0.82rem;">
+                    El <strong>Popol Vuh</strong> es el texto sagrado más importante de la civilización maya. Redactado en el siglo XVI por nobles K'iche'.
+                </p>
+                <ul class="content-list animate-in delay-2">
+                    <li><strong>Significado:</strong> "Popol" = Consejo | "Vuh" = Libro</li>
+                    <li><strong>Escrito en:</strong> Lengua K'iche' (maya-quiché)</li>
+                    <li><strong>Fecha:</strong> Circa 1550 d.C.</li>
+                    <li><strong>Material:</strong> Papel de corteza de amate</li>
+                    <li><strong>Traductor:</strong> Fray Francisco Ximénez</li>
+                    <li><strong>Estructura:</strong> Creación, héroes, historia K'iche'</li>
+                </ul>
+                <div class="quote animate-in delay-3" onclick="copyQuote(this)">
+                    Uno de los pocos textos precolombinos que sobrevivieron a la destrucción española.
+                </div>
+            </div>
+            <div class="image-panel">
+                <img src="https://kimi-web-img.moonshot.cn/img/arqueologiamexicana.mx/ef50013890fd2510df4464070609b51fa2586db4.png" alt="Cerámica Maya Clásica">
+                <div class="image-overlay"></div>
+                <div class="image-caption">Cerámica policroma maya clásica</div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 3: LA CREACIÓN -->
+        <div class="slide" id="slide-2">
+            <div class="corner-decor corner-tl"></div>
+            <div class="corner-decor corner-tr"></div>
+            <div class="corner-decor corner-bl"></div>
+            <div class="corner-decor corner-br"></div>
+            <div class="content-panel">
+                <h2 class="animate-in">La Creación del Mundo</h2>
+                <div class="title-decoration animate-in delay-1">
+                    <span>◆ ◆ ◆</span>
+                </div>
+                <p class="animate-in delay-1" style="margin-bottom: 8px; text-align: left; width: 100%; font-size: 0.82rem;">
+                    <strong>Antes de todo:</strong> Silencio, inmensidad, oscuridad.<br>
+                    <strong>Los Creadores:</strong> Tepeu y Gucumatz (Serpiente Emplumada)
+                </p>
+                <h3 class="animate-in delay-2">Los Intentos de Crear al Hombre</h3>
+                <table class="maya-table animate-in delay-2">
+                    <tr>
+                        <th>Intento</th>
+                        <th>Material</th>
+                        <th>Resultado</th>
+                    </tr>
+                    <tr>
+                        <td>1°</td>
+                        <td>Barro</td>
+                        <td>Frágiles, se deshacían ❌</td>
+                    </tr>
+                    <tr>
+                        <td>2°</td>
+                        <td>Madera</td>
+                        <td>Sin alma → Monos ❌</td>
+                    </tr>
+                    <tr>
+                        <td>3°</td>
+                        <td>🌽 Maíz</td>
+                        <td><strong>Hombres perfectos ✅</strong></td>
+                    </tr>
+                </table>
+                <div class="quote animate-in delay-3" onclick="copyQuote(this)">
+                    "Solo masa de maíz fueron sus cuerpos."
+                </div>
+            </div>
+            <div class="image-panel">
+                <img src="https://kimi-web-img.moonshot.cn/img/arqueologiamexicana.mx/afeeb36a21c6883a51574a37f47d1e441642999b.jpg" alt="Arte del Popol Vuh">
+                <div class="image-overlay"></div>
+                <div class="image-caption">Dioses de la creación maya</div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 4: PERSONAJES -->
+        <div class="slide" id="slide-3">
+            <div class="corner-decor corner-tl"></div>
+            <div class="corner-decor corner-tr"></div>
+            <div class="corner-decor corner-bl"></div>
+            <div class="corner-decor corner-br"></div>
+            <div class="content-panel">
+                <h2 class="animate-in">Los Personajes Principales</h2>
+                <div class="title-decoration animate-in delay-1">
+                    <span>◆ ◆ ◆</span>
+                </div>
+                <div class="characters-grid">
+                    <div class="character-card animate-in" onclick="highlightCard(this)">
+                        <h4>🌟 Tepeu</h4>
+                        <p>El Arquitecto. Dios creador supremo del universo.</p>
+                    </div>
+                    <div class="character-card animate-in delay-1" onclick="highlightCard(this)">
+                        <h4>🐍 Gucumatz</h4>
+                        <p>La Serpiente Emplumada, fuerza creadora.</p>
+                    </div>
+                    <div class="character-card animate-in delay-2" onclick="highlightCard(this)">
+                        <h4>👴👵 Xpiyakok e Ixmukane</h4>
+                        <p>Los Abuelos Sabios, guardianes del conocimiento.</p>
+                    </div>
+                    <div class="character-card animate-in delay-3" onclick="highlightCard(this)">
+                        <h4>⚔️ Hunahpú e Ixbalanqué</h4>
+                        <p>Los Héroes Gemelos, vencedores del inframundo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="image-panel">
+                <img src="https://kimi-web-img.moonshot.cn/img/upload.wikimedia.org/af2be74a0f3279460d2981d4bedc639b660b02fa.jpg" alt="Jarrón Maya Hunahpú e Ixbalanqué">
+                <div class="image-overlay"></div>
+                <div class="image-caption">Jarrón maya — Hunahpú e Ixbalanqué</div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 5: LOS HÉROES GEMELOS -->
+        <div class="slide" id="slide-4">
+            <div class="corner-decor corner-tl"></div>
+            <div class="corner-decor corner-tr"></div>
+            <div class="corner-decor corner-bl"></div>
+            <div class="corner-decor corner-br"></div>
+            <div class="content-panel">
+                <h2 class="animate-in">Los Héroes Gemelos</h2>
+                <div class="title-decoration animate-in delay-1">
+                    <span>◆ ◆ ◆</span>
+                </div>
+                <h3 class="animate-in delay-1">Junajpú e Ixb'alamke</h3>
+                <ul class="content-list animate-in delay-2">
+                    <li><strong>Nacimiento:</strong> Ixkik' queda embarazada al hablar con la cabeza de Jun Junajpú</li>
+                    <li><strong>Infancia:</strong> Criados por su abuela Ixmukane</li>
+                    <li><strong>Hazañas:</strong> Derrotan a Vucub Caquix, Zipacná y Cabracán</li>
+                    <li><strong>Xibalbá:</strong> Sobreviven pruebas mortales</li>
+                    <li><strong>Destino:</strong> ¡Ascienden como el Sol y la Luna!</li>
+                </ul>
+            </div>
+            <div class="image-panel">
+                <img src="https://kimi-web-img.moonshot.cn/img/upload.wikimedia.org/3e9b9d50a1af221a19aec0f75711e06906aed9d9.jpg" alt="Hunahpú - Dios Maya">
+                <div class="image-overlay"></div>
+                <div class="image-caption">Representación de Hunahpú</div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 6: XIBALBÁ -->
+        <div class="slide" id="slide-5">
+            <div class="corner-decor corner-tl"></div>
+            <div class="corner-decor corner-tr"></div>
+            <div class="corner-decor corner-bl"></div>
+            <div class="corner-decor corner-br"></div>
+            <div class="content-panel">
+                <h2 class="animate-in">Xibalbá</h2>
+                <p class="subtitle animate-in delay-1" style="font-size: 0.85rem;">El Inframundo Maya — "Lugar del Asombro"</p>
+                <div class="title-decoration animate-in delay-1">
+                    <span>◆ ◆ ◆</span>
+                </div>
+                <p class="animate-in delay-2" style="margin-bottom: 8px; text-align: left; width: 100%; font-size: 0.8rem;">
+                    Reino de los muertos y de pruebas. Sus señores son engañosos y cruelmente hospitalarios.
+                </p>
+                <h3 class="animate-in delay-2">Las Seis Casas</h3>
+                <div class="characters-grid animate-in delay-3">
+                    <div class="character-card" onclick="highlightCard(this)">
+                        <h4>🏠 Oscuridad</h4>
+                        <p>Sin luz ni guía.</p>
+                    </div>
+                    <div class="character-card" onclick="highlightCard(this)">
+                        <h4>🔪 Cuchillos</h4>
+                        <p>Hojas giratorias.</p>
+                    </div>
+                    <div class="character-card" onclick="highlightCard(this)">
+                        <h4>❄️ Frío</h4>
+                        <p>Viento gélido.</p>
+                    </div>
+                    <div class="character-card" onclick="highlightCard(this)">
+                        <h4>🐆 Jaguares</h4>
+                        <p>Fieras hambrientas.</p>
+                    </div>
+                    <div class="character-card" onclick="highlightCard(this)">
+                        <h4>🔥 Fuego</h4>
+                        <p>Llamas eternas.</p>
+                    </div>
+                    <div class="character-card" onclick="highlightCard(this)">
+                        <h4>🦇 Murciélagos</h4>
+                        <p>Criaturas nocturnas.</p>
+                    </div>
+                </div>
+                <div class="quote animate-in delay-4" onclick="copyQuote(this)" style="font-size: 0.82rem;">
+                    Xibalbá representa los obstáculos internos: miedo, orgullo, ignorancia.
+                </div>
+            </div>
+            <div class="image-panel">
+                <img src="https://kimi-web-img.moonshot.cn/img/2114141.fs1.hubspotusercontent-na1.net/88b811ffcfa36307139ff0bbe372da2d31210d65.jpg" alt="Mural Maya Xibalbá">
+                <div class="image-overlay"></div>
+                <div class="image-caption">Mural maya — Escenas del inframundo</div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 7: EL HOMBRE DE MAÍZ -->
+        <div class="slide" id="slide-6">
+            <div class="corner-decor corner-tl"></div>
+            <div class="corner-decor corner-tr"></div>
+            <div class="corner-decor corner-bl"></div>
+            <div class="corner-decor corner-br"></div>
+            <div class="content-panel">
+                <h2 class="animate-in">El Hombre de Maíz</h2>
+                <div class="title-decoration animate-in delay-1">
+                    <span>◆ ◆ ◆</span>
+                </div>
+                <h3 class="animate-in delay-1">Los Cuatro Primeros Hombres</h3>
+                <div class="characters-grid animate-in delay-2">
+                    <div class="character-card" onclick="highlightCard(this)">
+                        <h4>🐆 Balam Quitzé</h4>
+                        <p>Jaguar de la Lluvia</p>
+                    </div>
+                    <div class="character-card" onclick="highlightCard(this)">
+                        <h4>🌙 Balam Ak'ab</h4>
+                        <p>Jaguar de la Noche</p>
+                    </div>
+                    <div class="character-card" onclick="highlightCard(this)">
+                        <h4>💎 Mahucutah</h4>
+                        <p>No se pierde</p>
+                    </div>
+                    <div class="character-card" onclick="highlightCard(this)">
+                        <h4>⭐ Iqui Balam</h4>
+                        <p>Jaguar de la Luna</p>
+                    </div>
+                </div>
+                <div class="quote animate-in delay-3" onclick="copyQuote(this)">
+                    "De maíz amarillo y blanco fue hecha su carne."
+                </div>
+                <p class="animate-in delay-4" style="margin-top: 8px; font-size: 0.8rem; color: var(--ocre); text-align: left; width: 100%;">
+                    El maíz es la <strong>esencia divina</strong> del ser humano. La agricultura y el calendario están unidos a los ciclos cósmicos.
+                </p>
+            </div>
+            <div class="image-panel">
+                <img src="https://kimi-web-img.moonshot.cn/img/137degrees.com/96b12942f7402b3975dce941625e754cd6bf0da9.jpg" alt="Cerámica Maya Antigua">
+                <div class="image-overlay"></div>
+                <div class="image-caption">Plato ceremonial maya</div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 8: TEMAS PRINCIPALES -->
+        <div class="slide full-content" id="slide-7">
+            <div class="corner-decor corner-tl"></div>
+            <div class="corner-decor corner-tr"></div>
+            <div class="corner-decor corner-bl"></div>
+            <div class="corner-decor corner-br"></div>
+            <div class="content-panel">
+                <h2 class="animate-in">Temas Principales</h2>
+                <div class="title-decoration animate-in delay-1">
+                    <span>◆ ◆ ◆</span>
+                </div>
+                <div class="two-columns animate-in delay-2">
+                    <div class="column-section" onclick="highlightSection(this)">
+                        <h4>🌌 Creación</h4>
+                        <p>Origen del mundo y del ser humano desde el silencio primordial.</p>
+                    </div>
+                    <div class="column-section" onclick="highlightSection(this)">
+                        <h4>⚔️ Heroísmo</h4>
+                        <p>Lucha del bien contra el mal, astucia contra soberbia.</p>
+                    </div>
+                    <div class="column-section" onclick="highlightSection(this)">
+                        <h4>🔄 Dualidad</h4>
+                        <p>Vida/muerte, luz/oscuridad, cielo/inframundo.</p>
+                    </div>
+                    <div class="column-section" onclick="highlightSection(this)">
+                        <h4>🌽 Maíz</h4>
+                        <p>Sustento sagrado y origen divino de la humanidad.</p>
+                    </div>
+                    <div class="column-section" onclick="highlightSection(this)">
+                        <h4>📚 Conocimiento</h4>
+                        <p>Transmisión de la sabiduría ancestral.</p>
+                    </div>
+                    <div class="column-section" onclick="highlightSection(this)">
+                        <h4>🌅 Astronomía</h4>
+                        <p>Ciclos del sol, la luna y Venus — tiempo cíclico.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 9: IMPORTANCIA -->
+        <div class="slide" id="slide-8">
+            <div class="corner-decor corner-tl"></div>
+            <div class="corner-decor corner-tr"></div>
+            <div class="corner-decor corner-bl"></div>
+            <div class="corner-decor corner-br"></div>
+            <div class="content-panel">
+                <h2 class="animate-in">Importancia y Legado</h2>
+                <div class="title-decoration animate-in delay-1">
+                    <span>◆ ◆ ◆</span>
+                </div>
+                <ul class="content-list animate-in delay-1">
+                    <li><strong>Literatura:</strong> La obra más importante de la literatura indígena americana</li>
+                    <li><strong>Historia:</strong> Documenta la genealogía de los gobernantes K'iche'</li>
+                    <li><strong>Cosmovisión:</strong> Visión cíclica del tiempo (no lineal)</li>
+                    <li><strong>Arqueología:</strong> Escenas en cerámica y murales mayas</li>
+                    <li><strong>Cultura viva:</strong> Referente para los pueblos mayas contemporáneos</li>
+                    <li><strong>Arte:</strong> Ha inspirado literatura, pintura, música y cine</li>
+                </ul>
+                <div class="quote animate-in delay-2" onclick="copyQuote(this)">
+                    "Todo lo que existe, todo lo que fue creado, todo lo que fue formado..."
+                </div>
+            </div>
+            <div class="image-panel">
+                <img src="https://kimi-web-img.moonshot.cn/img/cdnx.jumpseller.com/a6c02120971bfeb65837a32bdde126c8f29db68c.jpg" alt="Portada Popol Vuh">
+                <div class="image-overlay"></div>
+                <div class="image-caption">Edición moderna del Popol Vuh</div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 10: CIERRE -->
+        <div class="slide full-content" id="slide-9">
+            <div class="corner-decor corner-tl"></div>
+            <div class="corner-decor corner-tr"></div>
+            <div class="corner-decor corner-bl"></div>
+            <div class="corner-decor corner-br"></div>
+            <div class="content-panel">
+                <div class="maya-icon animate-in" onclick="animateIcon(this)">🌽</div>
+                <h1 class="animate-in delay-1" style="font-size: 2.2rem;">Gracias</h1>
+                <div class="title-decoration animate-in delay-2">
+                    <span>◆ ◆ ◆</span>
+                </div>
+                <p class="subtitle animate-in delay-2">Popol Vuh — El Libro del Consejo</p>
+                <p class="animate-in delay-3" style="margin-top: 18px; font-size: 0.9rem; max-width: 450px; color: var(--ocre);">
+                    <em>"El maíz es nuestra carne, nuestra sangre, nuestra memoria."</em>
+                </p>
+                <div style="margin-top: 25px; font-size: 0.72rem; color: var(--ocre); opacity: 0.5;" class="animate-in delay-4">
+                    Presentación temática inspirada en el arte maya clásico<br>
+                    Cerámica policroma · Códices · Murales
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn" id="prevBtn">◀ Anterior</button>
+        <button class="btn" id="nextBtn">Siguiente ▶</button>
+    </div>
+
+    <div class="slide-counter" id="slideCounter">1 / 10</div>
+
+    <script>
+        // Variables globales
+        let currentSlide = 0;
+        const totalSlides = 10;
+        let clockRunning = true;
+
+        // CREAR PARTÍCULAS DE FONDO
+        function createParticles() {
+            const container = document.getElementById('particlesContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            for (let i = 0; i < 25; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = (Math.random() * 10) + 's';
+                particle.style.animationDuration = (8 + Math.random() * 6) + 's';
+                const size = 2 + Math.random() * 4;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                container.appendChild(particle);
+            }
+        }
+
+        // RELOJ MAYA
+        function updateClock() {
+            if (!clockRunning) return;
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('es-ES', { hour12: false });
+            const dateStr = now.toLocaleDateString('es-ES');
+            const timeEl = document.getElementById('clockTime');
+            const dateEl = document.getElementById('clockDate');
+            if (timeEl) timeEl.textContent = timeStr;
+            if (dateEl) dateEl.textContent = dateStr;
+        }
+
+        function toggleClock() {
+            clockRunning = !clockRunning;
+            const clock = document.getElementById('mayaClock');
+            if (clock) {
+                clock.style.opacity = clockRunning ? '1' : '0.5';
+                const label = clock.querySelector('.clock-label');
+                if (label) label.textContent = clockRunning ? 'Clic para pausar' : 'Clic para reanudar';
+            }
+        }
+
+        // ANIMAR ICONO DE MAÍZ
+        function animateIcon(icon) {
+            icon.style.transform = 'rotate(360deg) scale(1.5)';
+            icon.style.filter = 'drop-shadow(0 0 20px var(--dorado))';
+            setTimeout(() => {
+                icon.style.transform = '';
+                icon.style.filter = '';
+            }, 1000);
+        }
+
+        // ANIMAR GIF EN PORTADA
+        function animateGif(gifItem) {
+            gifItem.style.transform = 'scale(1.3) rotate(5deg)';
+            gifItem.style.borderColor = 'var(--dorado)';
+            gifItem.style.boxShadow = '0 0 30px rgba(212, 168, 67, 0.5)';
+            setTimeout(() => {
+                gifItem.style.transform = '';
+                gifItem.style.borderColor = '';
+                gifItem.style.boxShadow = '';
+            }, 800);
+        }
+
+        // HIGHLIGHT CARD
+        function highlightCard(card) {
+            document.querySelectorAll('.character-card').forEach(c => {
+                c.classList.remove('active-highlight');
+            });
+            card.classList.add('active-highlight');
+            setTimeout(() => {
+                card.classList.remove('active-highlight');
+            }, 1500);
+        }
+
+        // HIGHLIGHT SECTION
+        function highlightSection(section) {
+            document.querySelectorAll('.column-section').forEach(s => {
+                s.classList.remove('active-highlight');
+            });
+            section.classList.add('active-highlight');
+            setTimeout(() => {
+                section.classList.remove('active-highlight');
+            }, 1500);
+        }
+
+        // COPIAR CITA
+        function copyQuote(quote) {
+            const text = quote.textContent.trim();
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopyFeedback(quote);
+                }).catch(() => {
+                    showCopyFeedback(quote);
+                });
+            } else {
+                showCopyFeedback(quote);
+            }
+        }
+
+        function showCopyFeedback(quote) {
+            const original = quote.textContent;
+            quote.textContent = '✓ ¡Copiado!';
+            quote.style.color = 'var(--dorado)';
+            setTimeout(() => {
+                quote.textContent = original;
+                quote.style.color = '';
+            }, 1500);
+        }
+
+        // NAVEGACIÓN
+        function updateSlide() {
+            for (let i = 0; i < totalSlides; i++) {
+                const slide = document.getElementById('slide-' + i);
+                if (slide) {
+                    slide.classList.remove('active', 'prev');
+                    if (i < currentSlide) {
+                        slide.classList.add('prev');
+                    }
+                }
+            }
+            const activeSlide = document.getElementById('slide-' + currentSlide);
+            if (activeSlide) activeSlide.classList.add('active');
+
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            if (prevBtn) prevBtn.disabled = currentSlide === 0;
+            if (nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
+
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                const progress = ((currentSlide + 1) / totalSlides) * 100;
+                progressBar.style.width = progress + '%';
+            }
+
+            const slideCounter = document.getElementById('slideCounter');
+            if (slideCounter) slideCounter.textContent = (currentSlide + 1) + ' / ' + totalSlides;
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < totalSlides) {
+                currentSlide = newSlide;
+                updateSlide();
+            }
+        }
+
+        // INICIALIZAR EVENT LISTENERS
+        function initEventListeners() {
+            // Botón COMENZAR
+            const btnComenzar = document.getElementById('btnComenzar');
+            if (btnComenzar) {
+                btnComenzar.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    changeSlide(1);
+                });
+            }
+
+            // Botones de navegación
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function() { changeSlide(-1); });
+            }
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function() { changeSlide(1); });
+            }
+
+            // Reloj
+            const mayaClock = document.getElementById('mayaClock');
+            if (mayaClock) {
+                mayaClock.addEventListener('click', toggleClock);
+            }
+
+            // Teclado
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    changeSlide(1);
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    changeSlide(-1);
+                } else if (e.key === 'Home') {
+                    e.preventDefault();
+                    currentSlide = 0;
+                    updateSlide();
+                } else if (e.key === 'End') {
+                    e.preventDefault();
+                    currentSlide = totalSlides - 1;
+                    updateSlide();
+                }
+            });
+        }
+
+        // INICIALIZAR TODO
+        function init() {
+            createParticles();
+            setInterval(updateClock, 1000);
+            updateClock();
+            initEventListeners();
+            updateSlide();
+        }
+
+        // Ejecutar cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>
