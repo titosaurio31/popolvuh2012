@@ -143,7 +143,7 @@ p, li { font-size: 0.85rem; line-height: 1.55; color: var(--crema); max-width: 1
 <div class="corner-decor corner-bl"></div>
 <div class="corner-decor corner-br"></div>
 <div class="content-panel">
-<div class="maya-icon animate-in" onclick="animateIcon(this)">🌽</div>
+<div class="maya-icon animate-in" onclick="animateIcon(this); spawnMiniMaiz(event.clientX, event.clientY)" style="font-size: 1.8rem; margin: 4px 0;">🌽</div>
 <h1 class="animate-in">POPOL VUH</h1>
 <div class="title-decoration animate-in delay-1"><span>◆ ◆ ◆</span></div>
 <p class="subtitle animate-in delay-1">El Libro Sagrado de los Mayas</p>
@@ -172,7 +172,7 @@ p, li { font-size: 0.85rem; line-height: 1.55; color: var(--crema); max-width: 1
 </div>
 </div>
 
-<button class="portada-btn-start animate-in delay-4" id="btnComenzar" onclick="btnComenzarClick(event)">▶ COMENZAR PRESENTACIÓN</button>
+<button class="portada-btn-start animate-in delay-4" id="btnComenzar" onclick="btnComenzarClick(event)" style="margin-top: 12px; padding: 10px 30px; font-size: 0.9rem;">▶ COMENZAR</button>
 <p class="animate-in delay-5" style="margin-top: 15px; font-size: 0.75rem; color: var(--ocre); opacity: 0.6;">Texto sagrado redactado circa 1550 d.C. en lengua K'iche'</p>
 </div>
 </div>
@@ -185,65 +185,65 @@ p, li { font-size: 0.85rem; line-height: 1.55; color: var(--crema); max-width: 1
 <div class="title-decoration animate-in delay-1"><span>◆ ◆ ◆</span></div>
 
 <!-- PASO 1 -->
-<div class="paso-resumen animate-in delay-1" onclick="spawnMiniMaiz(event.clientX, event.clientY)" style="margin: 10px 0; padding: 10px 14px; background: rgba(139, 105, 20, 0.15); border: 1px solid var(--tierra); border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">
+<div class="paso-resumen animate-in delay-1" onclick="spawnMiniMaiz(event.clientX, event.clientY)" style="margin: 6px 0; padding: 6px 10px; background: rgba(139, 105, 20, 0.1); border: 1px solid var(--tierra); border-radius: 6px; cursor: pointer; transition: all 0.3s ease;">
 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-<span style="font-size: 1.4rem;">🏔️</span>
-<h3 style="font-size: 0.95rem; color: var(--dorado); margin: 0;">Paso 1: Se escondieron</h3>
+<span style="font-size: 1.1rem;">🏔️</span>
+<h3 style="font-size: 0.85rem; color: var(--dorado); margin: 0;">Paso 1: Se escondieron</h3>
 </div>
-<p style="font-size: 0.85rem; line-height: 1.5; margin: 0; color: var(--crema);">Cuatro hombres se escondieron en las montañas:</p>
+<p style="font-size: 0.78rem; line-height: 1.4; margin: 0; color: var(--crema);">Cuatro hombres se escondieron en las montañas:</p>
 <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px;">
-<span style="background: rgba(212,168,67,0.2); padding: 3px 8px; border-radius: 4px; font-size: 0.78rem; color: var(--dorado); border: 1px solid var(--tierra);">Balam-Quitzé</span>
-<span style="background: rgba(212,168,67,0.2); padding: 3px 8px; border-radius: 4px; font-size: 0.78rem; color: var(--dorado); border: 1px solid var(--tierra);">Balam-Acab</span>
-<span style="background: rgba(212,168,67,0.2); padding: 3px 8px; border-radius: 4px; font-size: 0.78rem; color: var(--dorado); border: 1px solid var(--tierra);">Mahucutah</span>
-<span style="background: rgba(212,168,67,0.2); padding: 3px 8px; border-radius: 4px; font-size: 0.78rem; color: var(--dorado); border: 1px solid var(--tierra);">Iqui-Balam</span>
+<span style="background: rgba(212,168,67,0.2); padding: 2px 6px; border-radius: 3px; font-size: 0.72rem; color: var(--dorado); border: 1px solid var(--tierra);">Balam-Quitzé</span>
+<span style="background: rgba(212,168,67,0.2); padding: 2px 6px; border-radius: 3px; font-size: 0.72rem; color: var(--dorado); border: 1px solid var(--tierra);">Balam-Acab</span>
+<span style="background: rgba(212,168,67,0.2); padding: 2px 6px; border-radius: 3px; font-size: 0.72rem; color: var(--dorado); border: 1px solid var(--tierra);">Mahucutah</span>
+<span style="background: rgba(212,168,67,0.2); padding: 2px 6px; border-radius: 3px; font-size: 0.72rem; color: var(--dorado); border: 1px solid var(--tierra);">Iqui-Balam</span>
 </div>
 </div>
 
 <!-- PASO 2 -->
-<div class="paso-resumen animate-in delay-2" onclick="spawnMiniMaiz(event.clientX, event.clientY)" style="margin: 10px 0; padding: 10px 14px; background: rgba(139, 105, 20, 0.15); border: 1px solid var(--tierra); border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">
+<div class="paso-resumen animate-in delay-2" onclick="spawnMiniMaiz(event.clientX, event.clientY)" style="margin: 6px 0; padding: 6px 10px; background: rgba(139, 105, 20, 0.1); border: 1px solid var(--tierra); border-radius: 6px; cursor: pointer; transition: all 0.3s ease;">
 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-<span style="font-size: 1.4rem;">🐺</span>
-<h3 style="font-size: 0.95rem; color: var(--dorado); margin: 0;">Paso 2: Hacían ruidos de animales</h3>
+<span style="font-size: 1.1rem;">🐺</span>
+<h3 style="font-size: 0.85rem; color: var(--dorado); margin: 0;">Paso 2: Hacían ruidos de animales</h3>
 </div>
-<p style="font-size: 0.85rem; line-height: 1.5; margin: 0; color: var(--crema);">Imitaban sonidos para asustar a otros:</p>
+<p style="font-size: 0.78rem; line-height: 1.4; margin: 0; color: var(--crema);">Imitaban sonidos para asustar a otros:</p>
 <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px;">
-<span style="background: rgba(139,105,20,0.3); padding: 3px 8px; border-radius: 4px; font-size: 0.78rem; color: var(--ocre);">🐕 Coyotes</span>
-<span style="background: rgba(139,105,20,0.3); padding: 3px 8px; border-radius: 4px; font-size: 0.78rem; color: var(--ocre);">🦁 Leones</span>
-<span style="background: rgba(139,105,20,0.3); padding: 3px 8px; border-radius: 4px; font-size: 0.78rem; color: var(--ocre);">🐅 Tigres</span>
+<span style="background: rgba(139,105,20,0.3); padding: 2px 6px; border-radius: 3px; font-size: 0.72rem; color: var(--ocre);">🐕 Coyotes</span>
+<span style="background: rgba(139,105,20,0.3); padding: 2px 6px; border-radius: 3px; font-size: 0.72rem; color: var(--ocre);">🦁 Leones</span>
+<span style="background: rgba(139,105,20,0.3); padding: 2px 6px; border-radius: 3px; font-size: 0.72rem; color: var(--ocre);">🐅 Tigres</span>
 </div>
 </div>
 
 <!-- PASO 3 -->
-<div class="paso-resumen animate-in delay-2" onclick="spawnMiniMaiz(event.clientX, event.clientY)" style="margin: 10px 0; padding: 10px 14px; background: rgba(139, 105, 20, 0.15); border: 1px solid var(--tierra); border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">
+<div class="paso-resumen animate-in delay-2" onclick="spawnMiniMaiz(event.clientX, event.clientY)" style="margin: 6px 0; padding: 6px 10px; background: rgba(139, 105, 20, 0.1); border: 1px solid var(--tierra); border-radius: 6px; cursor: pointer; transition: all 0.3s ease;">
 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-<span style="font-size: 1.4rem;">😰</span>
-<h3 style="font-size: 0.95rem; color: var(--dorado); margin: 0;">Paso 3: Los otros tenían miedo</h3>
+<span style="font-size: 1.1rem;">😰</span>
+<h3 style="font-size: 0.85rem; color: var(--dorado); margin: 0;">Paso 3: Los otros tenían miedo</h3>
 </div>
-<p style="font-size: 0.85rem; line-height: 1.5; margin: 0; color: var(--crema);">Las otras tribus sospechaban y les temían.</p>
+<p style="font-size: 0.78rem; line-height: 1.4; margin: 0; color: var(--crema);">Las otras tribus sospechaban y les temían.</p>
 </div>
 
 <!-- PASO 4 -->
-<div class="paso-resumen animate-in delay-3" onclick="spawnMiniMaiz(event.clientX, event.clientY)" style="margin: 10px 0; padding: 10px 14px; background: rgba(139, 105, 20, 0.15); border: 1px solid var(--tierra); border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">
+<div class="paso-resumen animate-in delay-3" onclick="spawnMiniMaiz(event.clientX, event.clientY)" style="margin: 6px 0; padding: 6px 10px; background: rgba(139, 105, 20, 0.1); border: 1px solid var(--tierra); border-radius: 6px; cursor: pointer; transition: all 0.3s ease;">
 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-<span style="font-size: 1.4rem;">🩸</span>
-<h3 style="font-size: 0.95rem; color: var(--dorado); margin: 0;">Paso 4: Daban ofrendas a los dioses</h3>
+<span style="font-size: 1.1rem;">🩸</span>
+<h3 style="font-size: 0.85rem; color: var(--dorado); margin: 0;">Paso 4: Daban ofrendas a los dioses</h3>
 </div>
-<p style="font-size: 0.85rem; line-height: 1.5; margin: 0; color: var(--crema);">Los sacerdotes daban sangre a los dioses:</p>
+<p style="font-size: 0.78rem; line-height: 1.4; margin: 0; color: var(--crema);">Los sacerdotes daban sangre a los dioses:</p>
 <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px;">
-<span style="background: rgba(139,37,0,0.3); padding: 3px 8px; border-radius: 4px; font-size: 0.78rem; color: var(--crema); border: 1px solid var(--rojo-maya);">🔥 Tohil</span>
-<span style="background: rgba(139,37,0,0.3); padding: 3px 8px; border-radius: 4px; font-size: 0.78rem; color: var(--crema); border: 1px solid var(--rojo-maya);">🌊 Avilix</span>
-<span style="background: rgba(139,37,0,0.3); padding: 3px 8px; border-radius: 4px; font-size: 0.78rem; color: var(--crema); border: 1px solid var(--rojo-maya);">⛰️ Hacavitz</span>
+<span style="background: rgba(139,37,0,0.3); padding: 2px 6px; border-radius: 3px; font-size: 0.72rem; color: var(--crema); border: 1px solid var(--rojo-maya);">🔥 Tohil</span>
+<span style="background: rgba(139,37,0,0.3); padding: 2px 6px; border-radius: 3px; font-size: 0.72rem; color: var(--crema); border: 1px solid var(--rojo-maya);">🌊 Avilix</span>
+<span style="background: rgba(139,37,0,0.3); padding: 2px 6px; border-radius: 3px; font-size: 0.72rem; color: var(--crema); border: 1px solid var(--rojo-maya);">⛰️ Hacavitz</span>
 </div>
-<p style="font-size: 0.8rem; line-height: 1.5; margin: 6px 0 0; color: var(--ocre);">Daban sangre de animales y de ellos mismos.</p>
+<p style="font-size: 0.75rem; line-height: 1.4; margin: 4px 0 0; color: var(--ocre);">Daban sangre de animales y de ellos mismos.</p>
 </div>
 
 <!-- PASO 5 -->
-<div class="paso-resumen animate-in delay-3" onclick="spawnMiniMaiz(event.clientX, event.clientY)" style="margin: 10px 0; padding: 10px 14px; background: rgba(139, 105, 20, 0.15); border: 1px solid var(--tierra); border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">
+<div class="paso-resumen animate-in delay-3" onclick="spawnMiniMaiz(event.clientX, event.clientY)" style="margin: 6px 0; padding: 6px 10px; background: rgba(139, 105, 20, 0.1); border: 1px solid var(--tierra); border-radius: 6px; cursor: pointer; transition: all 0.3s ease;">
 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-<span style="font-size: 1.4rem;">✅</span>
-<h3 style="font-size: 0.95rem; color: var(--dorado); margin: 0;">Paso 5: Los dioses los ayudaron</h3>
+<span style="font-size: 1.1rem;">✅</span>
+<h3 style="font-size: 0.85rem; color: var(--dorado); margin: 0;">Paso 5: Los dioses los ayudaron</h3>
 </div>
-<p style="font-size: 0.85rem; line-height: 1.5; margin: 0; color: var(--crema);">Los dioses aceptaron las ofrendas y les dieron:</p>
+<p style="font-size: 0.78rem; line-height: 1.4; margin: 0; color: var(--crema);">Los dioses aceptaron las ofrendas y les dieron:</p>
 <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px;">
 <span style="background: rgba(0,255,157,0.15); padding: 3px 8px; border-radius: 4px; font-size: 0.78rem; color: #00ff9d; border: 1px solid #00ff9d;">💪 Fuerza</span>
 <span style="background: rgba(0,255,157,0.15); padding: 3px 8px; border-radius: 4px; font-size: 0.78rem; color: #00ff9d; border: 1px solid #00ff9d;">🛡️ Protección</span>
@@ -251,10 +251,10 @@ p, li { font-size: 0.85rem; line-height: 1.55; color: var(--crema); max-width: 1
 </div>
 
 <!-- IDEA PRINCIPAL -->
-<div class="idea-principal animate-in delay-4" onclick="spawnMiniMaiz(event.clientX, event.clientY)" style="margin-top: 15px; padding: 12px 16px; background: rgba(212, 168, 67, 0.12); border: 2px solid var(--dorado); border-radius: 8px; cursor: pointer; transition: all 0.3s ease; text-align: center;">
+<div class="idea-principal animate-in delay-4" onclick="spawnMiniMaiz(event.clientX, event.clientY)" style="margin-top: 10px; padding: 8px 12px; background: rgba(212, 168, 67, 0.12); border: 2px solid var(--dorado); border-radius: 6px; cursor: pointer; transition: all 0.3s ease; text-align: center;">
 <span style="font-size: 1.5rem;">💡</span>
 <h3 style="font-size: 1rem; color: var(--dorado); margin: 6px 0;">Idea Principal</h3>
-<p style="font-size: 0.85rem; line-height: 1.5; margin: 0; color: var(--crema);">Los quichés usaron rituales y ofrendas para tener más poder y protección de los dioses.</p>
+<p style="font-size: 0.78rem; line-height: 1.4; margin: 0; color: var(--crema);">Los quichés usaron rituales y ofrendas para tener más poder y protección de los dioses.</p>
 </div>
 
 </div>
@@ -416,7 +416,7 @@ p, li { font-size: 0.85rem; line-height: 1.55; color: var(--crema); max-width: 1
 <div class="slide full-content" id="slide-9">
 <div class="corner-decor corner-tl"></div><div class="corner-decor corner-tr"></div><div class="corner-decor corner-bl"></div><div class="corner-decor corner-br"></div>
 <div class="content-panel">
-<div class="maya-icon animate-in" onclick="animateIcon(this)">🌽</div>
+<div class="maya-icon animate-in" onclick="animateIcon(this); spawnMiniMaiz(event.clientX, event.clientY)" style="font-size: 1.8rem; margin: 4px 0;">🌽</div>
 <h1 class="animate-in delay-1" style="font-size: 2.2rem;">Gracias</h1>
 <div class="title-decoration animate-in delay-2"><span>◆ ◆ ◆</span></div>
 <p class="subtitle animate-in delay-2">Popol Vuh — El Libro del Consejo</p>
