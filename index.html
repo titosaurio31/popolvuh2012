@@ -172,8 +172,7 @@ p, li { font-size: 0.85rem; line-height: 1.55; color: var(--crema); max-width: 1
 </div>
 </div>
 
-<button class="portada-btn-start animate-in delay-4" id="btnComenzar" onclick="btnComenzarClick(event)" style="margin-top: 12px; padding: 10px 30px; font-size: 0.9rem;">▶ COMENZAR</button>
-<p class="animate-in delay-5" style="margin-top: 15px; font-size: 0.75rem; color: var(--ocre); opacity: 0.6;">Texto sagrado redactado circa 1550 d.C. en lengua K'iche'</p>
+<p class="animate-in delay-4" style="margin-top: 15px; font-size: 0.75rem; color: var(--ocre); opacity: 0.6;">Texto sagrado redactado circa 1550 d.C. en lengua K'iche'</p>
 </div>
 </div>
 
@@ -441,20 +440,6 @@ var clockRunning = true;
 var auroraColors = ['#00ff9d', '#00d4ff', '#ff00e5', '#ffd700', '#ff6b00', '#39ff14'];
 var maizEmojis = ['🌽', '🌾', '🌱', '🌻', '✨', '🌟'];
 
-// ===== FUNCION DEL BOTON COMENZAR =====
-function btnComenzarClick(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    var btn = document.getElementById('btnComenzar');
-    var rect = btn.getBoundingClientRect();
-    var centerX = rect.left + rect.width / 2;
-    var centerY = rect.top + rect.height / 2;
-    spawnMegaAurora(centerX, centerY);
-    setTimeout(function() {
-        changeSlide(1);
-    }, 600);
-}
-
 // ===== MEGA AURORA =====
 function spawnMegaAurora(x, y) {
     var container = document.getElementById('auroraContainer');
@@ -673,7 +658,22 @@ function initEventListeners() {
         prevBtn.addEventListener('click', function(e) { e.stopPropagation(); changeSlide(-1); });
     }
     if (nextBtn) {
-        nextBtn.addEventListener('click', function(e) { e.stopPropagation(); changeSlide(1); });
+        nextBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            // Solo efecto mega aurora en la primera diapositiva (portada)
+            if (currentSlide === 0) {
+                var rect = nextBtn.getBoundingClientRect();
+                var centerX = rect.left + rect.width / 2;
+                var centerY = rect.top + rect.height / 2;
+                spawnMegaAurora(centerX, centerY);
+                setTimeout(function() {
+                    changeSlide(1);
+                }, 600);
+            } else {
+                // En las demás diapositivas, navegación normal
+                changeSlide(1);
+            }
+        });
     }
 
     var mayaClock = document.getElementById('mayaClock');
