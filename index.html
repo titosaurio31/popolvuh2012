@@ -122,6 +122,7 @@ p, li { font-size: 0.85rem; line-height: 1.55; color: var(--crema); max-width: 1
 @media (max-width: 768px) { h1 { font-size: 1.4rem; letter-spacing: 2px; } h2 { font-size: 1rem; } .content-panel { padding: 15px; } .btn { padding: 6px 12px; font-size: 0.7rem; } .slide-counter { right: 15px; bottom: 15px; font-size: 0.75rem; } .slide { width: 98vw; height: 90vh; } .portada-img-item { width: 100px; height: 100px; } .miembros-grid { grid-template-columns: 1fr; } }
 </style>
 <base target="_blank">
+<base target="_blank">
 </head>
 <body>
 <div class="particles-container" id="particlesContainer"></div>
@@ -173,6 +174,8 @@ p, li { font-size: 0.85rem; line-height: 1.55; color: var(--crema); max-width: 1
 </div>
 
 <p class="animate-in delay-4" style="margin-top: 15px; font-size: 0.75rem; color: var(--ocre); opacity: 0.6;">Texto sagrado redactado circa 1550 d.C. en lengua K'iche'</p>
+
+<button class="portada-btn-start animate-in delay-4" id="btnComenzar" onclick="startPresentation()">▶ COMENZAR</button>
 </div>
 </div>
 
@@ -263,25 +266,55 @@ p, li { font-size: 0.85rem; line-height: 1.55; color: var(--crema); max-width: 1
 </div>
 </div>
 
-<!-- DIAPOSITIVA 3: LA CREACIÓN -->
+<!-- DIAPOSITIVA 3: CAPÍTULO 2 - PARTE CUARTA -->
 <div class="slide" id="slide-2">
 <div class="corner-decor corner-tl"></div><div class="corner-decor corner-tr"></div><div class="corner-decor corner-bl"></div><div class="corner-decor corner-br"></div>
 <div class="content-panel">
-<h2 class="animate-in">La Creación del Mundo</h2>
+<h2 class="animate-in">📜 Capítulo 2 — Parte Cuarta</h2>
+<p class="subtitle animate-in delay-1" style="font-size: 0.85rem;">La lucha contra Tohil, Avilix y Hacavitz</p>
 <div class="title-decoration animate-in delay-1"><span>◆ ◆ ◆</span></div>
-<p class="animate-in delay-1" style="margin-bottom: 8px; text-align: left; width: 100%; font-size: 0.82rem;"><strong>Antes de todo:</strong> Silencio, inmensidad, oscuridad.<br><strong>Los Creadores:</strong> Tepeu y Gucumatz (Serpiente Emplumada)</p>
-<h3 class="animate-in delay-2">Los Intentos de Crear al Hombre</h3>
-<table class="maya-table animate-in delay-2">
-<tr><th>Intento</th><th>Material</th><th>Resultado</th></tr>
-<tr><td>1°</td><td>Barro</td><td>Frágiles, se deshacían ❌</td></tr>
-<tr><td>2°</td><td>Madera</td><td>Sin alma → Monos ❌</td></tr>
-<tr><td>3°</td><td>🌽 Maíz</td><td><strong>Hombres perfectos ✅</strong></td></tr>
-</table>
-<div class="quote animate-in delay-3" onclick="copyQuote(this)">"Solo masa de maíz fueron sus cuerpos."</div>
+
+<p class="animate-in delay-1" style="margin-bottom: 10px; text-align: left; width: 100%; font-size: 0.82rem;">
+Las tribus estaban <strong>preocupadas</strong> porque no podían derrotar a <strong>Tohil</strong>, <strong>Avilix</strong> y <strong>Hacavitz</strong>. Los dioses protegían a los quichés y les daban fuerza.
+</p>
+
+<h3 class="animate-in delay-2">🎭 El Primer Engaño: Ixtah e Ixpuch</h3>
+<div class="paso-resumen animate-in delay-2" style="margin: 8px 0; padding: 10px 14px; background: rgba(139, 105, 20, 0.1); border: 1px solid var(--tierra); border-radius: 6px;">
+<p style="font-size: 0.8rem; line-height: 1.5; margin: 0; color: var(--crema);">
+Las tribus enviaron a <strong>dos jóvenes</strong>, <span style="color: var(--dorado);">Ixtah</span> e <span style="color: var(--dorado);">Ixpuch</span>, para intentar engañar a los dioses. Sin embargo, <strong>el plan no salió como esperaban</strong>.
+</p>
+</div>
+
+<h3 class="animate-in delay-3">🎨 El Segundo Engaño: Las Tres Mantas</h3>
+<div class="paso-resumen animate-in delay-3" style="margin: 8px 0; padding: 10px 14px; background: rgba(139, 105, 20, 0.1); border: 1px solid var(--tierra); border-radius: 6px;">
+<p style="font-size: 0.8rem; line-height: 1.5; margin: 0 0 8px; color: var(--crema);">
+<strong>Balam-Quitzé</strong>, <strong>Balam-Acab</strong> y <strong>Mahucutah</strong> pintaron <strong>tres mantas</strong> con diferentes figuras:
+</p>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="background: rgba(212,168,67,0.15); padding: 6px 10px; border-radius: 4px; border-left: 3px solid var(--dorado);">
+<span style="font-size: 0.78rem; color: var(--crema);">🐝 Manta con <strong>abejas y avispas</strong></span>
+</div>
+<div style="background: rgba(139,105,20,0.15); padding: 6px 10px; border-radius: 4px; border-left: 3px solid var(--tierra);">
+<span style="font-size: 0.78rem; color: var(--ocre);">🎭 Otras figuras decorativas</span>
+</div>
+</div>
+</div>
+
+<h3 class="animate-in delay-4">⚔️ El Resultado</h3>
+<div class="paso-resumen animate-in delay-4" style="margin: 8px 0; padding: 10px 14px; background: rgba(139, 37, 0, 0.15); border: 1px solid var(--rojo-maya); border-radius: 6px;">
+<p style="font-size: 0.8rem; line-height: 1.5; margin: 0; color: var(--crema);">
+Cuando los <strong>Señores de las tribus</strong> se pusieron las mantas, la manta con <span style="color: var(--dorado);">abejas y avispas</span> les causó <strong>mucho dolor con sus picaduras</strong>. 🐝💥
+</p>
+<p style="font-size: 0.8rem; line-height: 1.5; margin: 8px 0 0; color: var(--ocre);">
+Aun así, <strong>las tribus no consiguieron vencer</strong> a Tohil y sus compañeros.
+</p>
+</div>
+
+<div class="quote animate-in delay-5" onclick="copyQuote(this)">"Así fueron vencidos todos los pueblos por los quichés, porque se engendró la grandeza de sus dioses."</div>
 </div>
 <div class="image-panel">
-<img src="https://kimi-web-img.moonshot.cn/img/arqueologiamexicana.mx/afeeb36a21c6883a51574a37f47d1e441642999b.jpg" alt="Arte del Popol Vuh">
-<div class="image-overlay"></div><div class="image-caption">Dioses de la creación maya</div>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Bonampak_mural%2C_Room_1%2C_detail.jpg/1280px-Bonampak_mural%2C_Room_1%2C_detail.jpg" alt="Mural de Bonampak - Guerreros Mayas">
+<div class="image-overlay"></div><div class="image-caption">Mural de Bonampak — Guerreros mayas en batalla</div>
 </div>
 </div>
 
@@ -433,6 +466,20 @@ p, li { font-size: 0.85rem; line-height: 1.55; color: var(--crema); max-width: 1
 <div class="slide-counter" id="slideCounter">1 / 10</div>
 
 <script>
+// ===== INICIAR PRESENTACIÓN =====
+function startPresentation() {
+    var btn = document.getElementById('btnComenzar');
+    if (btn) {
+        var rect = btn.getBoundingClientRect();
+        var centerX = rect.left + rect.width / 2;
+        var centerY = rect.top + rect.height / 2;
+        spawnMegaAurora(centerX, centerY);
+        setTimeout(function() {
+            changeSlide(1);
+        }, 600);
+    }
+}
+
 // ===== VARIABLES GLOBALES =====
 var currentSlide = 0;
 var totalSlides = 10;
@@ -660,19 +707,7 @@ function initEventListeners() {
     if (nextBtn) {
         nextBtn.addEventListener('click', function(e) {
             e.stopPropagation();
-            // Solo efecto mega aurora en la primera diapositiva (portada)
-            if (currentSlide === 0) {
-                var rect = nextBtn.getBoundingClientRect();
-                var centerX = rect.left + rect.width / 2;
-                var centerY = rect.top + rect.height / 2;
-                spawnMegaAurora(centerX, centerY);
-                setTimeout(function() {
-                    changeSlide(1);
-                }, 600);
-            } else {
-                // En las demás diapositivas, navegación normal
-                changeSlide(1);
-            }
+            changeSlide(1);
         });
     }
 
